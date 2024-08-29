@@ -1,14 +1,56 @@
 import { Chart } from "chart.js/auto"
 import { useEffect, useRef } from "react";
-const data = [
-    { year: 2010, count: 10 },
-    { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
-    { year: 2013, count: 25 },
-    { year: 2014, count: 22 },
-    { year: 2015, count: 30 },
-    { year: 2016, count: 28 },
-  ];
+
+export const data = [
+  {
+    "Value": 500,
+    "Variable": "XS_agr",
+    "rus_name": "Выпуск в сельском хозяйстве",
+    "type": "test"
+  },
+  {
+    "Value": 625,
+    "Variable": "XS_man",
+    "rus_name": "Выпуск в промышленности",
+    "type": "test"
+  },
+  {
+    "Value": 600,
+    "Variable": "XS_ser",
+    "rus_name": "Выпуск в сфере услуг",
+    "type": "test"
+  },
+  {
+    "Value": 200,
+    "Variable": "XS_pub",
+    "rus_name": "Выпуск в государственном секторе",
+    "type": "test"
+  },
+  {
+    "Value": 300,
+    "Variable": "LD_agr",
+    "rus_name": "Спрос на труд в сельском хозяйстве",
+    "type": "test"
+  },
+  {
+    "Value": 100,
+    "Variable": "LD_man",
+    "rus_name": "Спрос на труд в промышленности",
+    "type": "test"
+  },
+  {
+    "Value": 200,
+    "Variable": "LD_ser",
+    "rus_name": "Спрос на труд в сфере услуг",
+    "type": "test"
+  },
+  {
+    "Value": 150,
+    "Variable": "LD_pub",
+    "rus_name": "Спрос на труд в государственном секторе",
+    "type": "test"
+  }
+]
 
 function ChartView() {
     useEffect(() => {
@@ -17,11 +59,11 @@ function ChartView() {
                 {
                   type: 'bar',
                   data: {
-                    labels: data.map(row => row.year),
+                    labels: data.map(row => 2030),
                     datasets: [
                       {
                         label: 'Acquisitions by year',
-                        data: data.map(row => row.count)
+                        data: data.map(row => row['Value'])
                       }
                     ]
                   }
