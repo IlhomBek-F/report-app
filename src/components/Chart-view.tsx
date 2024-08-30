@@ -54,23 +54,10 @@ export const data = [
 
 function ChartView() {
     useEffect(() => {
-           const a = new Chart(
-                document.getElementById('acquisitions') as any,
-                {
-                  type: 'bar',
-                  data: {
-                    labels: data.map(row => 2030),
-                    datasets: [
-                      {
-                        label: 'Acquisitions by year',
-                        data: data.map(row => row['Value'])
-                      }
-                    ]
-                  }
-                }
-              );
+      const chart = createChart(data);
+
         return () => {
-            a.destroy()
+            chart.destroy()
         }
     }, [])
     
@@ -80,6 +67,26 @@ function ChartView() {
         <div style={{width: "800px"}}><canvas id="acquisitions"></canvas></div>
         </>
     )
+}
+
+const createChart = (data: any) => {
+  const chart = new Chart(
+    document.getElementById('acquisitions') as any,
+    {
+      type: 'bar',
+      data: {
+        labels: data.map((row: any) => `${row['Variable']}-2030`),
+        datasets: [
+          {
+            label: '',
+            data: data.map((row: any) => row['Value'])
+          }
+        ]
+      }
+    }
+  );
+
+  return chart
 }
 
 export {ChartView}
