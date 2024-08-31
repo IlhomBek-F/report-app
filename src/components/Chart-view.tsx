@@ -13,11 +13,11 @@ export const createChart = (data: any) => {
     {
       type: 'bar',
       data: {
-        labels: data.map((row: any) => 2030),
+        labels: data.map(() => 2030),
         datasets: [
           {
               label: 'XS',
-              data: data.map((row) => row.Value),
+              data: data.map((row: any) => row.Value),
               backgroundColor: 'rgba(255, 99, 132, 0.2)'
           },
       ],

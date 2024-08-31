@@ -2,10 +2,10 @@ import { useMutation } from "@tanstack/react-query";
 import { Button, Select } from "antd"
 import { calculateCoef } from "../service";
 
-function Actions({chart, data}) {
+function Actions({chart, data}: any) {
  const mutation = useMutation({
         mutationFn: (payload) => calculateCoef(payload),
-        onSuccess(data, variables, context) {
+        onSuccess(data) {
           console.log(data)
         },
  });

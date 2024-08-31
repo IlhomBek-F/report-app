@@ -2,8 +2,8 @@ import { ChartView, createChart } from './components/Chart-view'
 import { SliderElem } from './components/Slider-elem'
 import { useDebounce } from './hooks/useDebounce'
 import './App.css'
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { calculateCoef, getData } from './service';
+import { useQuery } from '@tanstack/react-query';
+import { getData } from './service';
 import { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js';
 import { Actions } from './components/Actions';
@@ -35,7 +35,7 @@ function App() {
        <ChartView />
        <Actions chart={chart} data={data}/>
        <div className='container'>
-        {data?.map(({Value, rus_name}, index) => {
+        {data?.map(({Value, rus_name}: any, index: number) => {
           return <SliderElem title={rus_name} 
                              value={Value}
                              index={index}
