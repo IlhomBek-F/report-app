@@ -5,7 +5,12 @@ import { useRef } from "react";
 import { downloadCSV } from "../utils";
 import { ReportDataModel } from "../core";
 
-function Actions({chart, data}) {
+interface ActionsModel {
+  chart: null | any,
+  data: ReportDataModel[]
+}
+
+function Actions({chart, data}: ActionsModel) {
  const resData = useRef<null | ReportDataModel[]>([]);
 
  const mutation = useMutation({
