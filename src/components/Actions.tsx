@@ -3,13 +3,13 @@ import { Button, Select } from "antd"
 import { calculateCoef } from "../service";
 import { useRef } from "react";
 import { downloadCSV } from "../utils";
+import { ReportDataModel } from "../core";
 
-function Actions({chart, data}: any) {
- const resData = useRef();
- const chartYears = chart.current.data;
+function Actions({chart, data}) {
+ const resData = useRef<null | ReportDataModel[]>([]);
 
  const mutation = useMutation({
-        mutationFn: (payload) => calculateCoef(payload),
+        mutationFn: (payload: ReportDataModel[]) => calculateCoef(payload),
         onSuccess(data) {
           resData.current = data;
         },
@@ -19,17 +19,19 @@ function Actions({chart, data}: any) {
  });
 
   const handleYearChange = (year: number) => {
-    chartYears.labels = Array.from({length: 8}).map(() => year);
+    chart.current.data.labels = Array.from({length: 8}).map(() => year);
     chart.current.update();
   }
 
   const handleCalculationKoef = () => {
-    const payloadData = data.map((d: any) => ({...d, year: chartYears.labels?.[0]}));
+    const payloadData = data.map((d: ReportDataModel) => ({...d, year: chart.current?.data.labels?.[0]}));
     mutation.mutate(payloadData)
   }
 
   const handleExportCsv = () => {
-    downloadCSV(resData.current)
+    if(resData.current?.length) {
+        downloadCSV(resData.current as ReportDataModel[])
+    }
   }
 
     return (

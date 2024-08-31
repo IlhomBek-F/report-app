@@ -1,3 +1,5 @@
+import { ReportDataModel } from "../core";
+
 const BASE_API = 'http://147.45.184.63:5000';
 
 async function getData() {
@@ -10,7 +12,7 @@ async function getData() {
     return response.json();
 }
 
-async function calculateCoef(data: any) {
+async function calculateCoef(data: ReportDataModel[]) {
  const response = await fetch(`${BASE_API}/calc`, 
   {method: 'POST', body: JSON.stringify(data), headers: {
     "Content-Type": "application/json",
