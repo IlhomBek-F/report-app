@@ -20,7 +20,7 @@ function App() {
   })
 
   useEffect(() => {
-    if(isFetched) {
+    if(isFetched && !isError) {
       chart.current = createChart(data);
     }
 
