@@ -1,27 +1,35 @@
 import { useMutation } from "@tanstack/react-query";
 import { Button, Select } from "antd"
 import { calculateCoef } from "../service";
+import { useRef } from "react";
+import { downloadCSV } from "../utils";
 
 function Actions({chart, data}: any) {
+ const resData = useRef();
+ const chartYears = chart.current.data;
+
  const mutation = useMutation({
         mutationFn: (payload) => calculateCoef(payload),
         onSuccess(data) {
-          console.log(data)
+          resData.current = data;
+        },
+        onError(error) {
+            console.log(error.message)
         },
  });
 
   const handleYearChange = (year: number) => {
-    chart.current.data.labels = Array.from({length: 8}).map(() => year);
+    chartYears.labels = Array.from({length: 8}).map(() => year);
     chart.current.update();
   }
 
   const handleCalculationKoef = () => {
-    const payloadData = data.map((d: any) => ({...d, year: chart.current?.data?.labels?.[0]}));
+    const payloadData = data.map((d: any) => ({...d, year: chartYears.labels?.[0]}));
     mutation.mutate(payloadData)
   }
 
   const handleExportCsv = () => {
-    
+    downloadCSV(resData.current)
   }
 
     return (
@@ -38,7 +46,6 @@ function Actions({chart, data}: any) {
         { value: 2050, label: 2050 },
       ]}
     />
-    
      </div>
     )
 }
