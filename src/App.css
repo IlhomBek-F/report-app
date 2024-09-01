@@ -26,3 +26,19 @@
     width: 829px;
     justify-content: space-evenly;
 }
+
+:is(.rate-up, .rate-down, .rate-middle) {
+  margin: 0 10px;
+}
+
+.rate-up {
+  color: green;
+}
+
+.rate-middle {
+  color: yellow;
+}
+
+.rate-down {
+  color: red;
+}

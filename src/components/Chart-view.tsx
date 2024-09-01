@@ -1,9 +1,10 @@
 import { Chart } from "chart.js/auto"
 
 function ChartView() {
-   
     return (
-        <div style={{width: "800px"}}><canvas id="acquisitions"></canvas></div>
+        <div style={{width: "800px"}}>
+          <canvas id="acquisitions"></canvas>
+        </div>
     )
 }
 
@@ -16,9 +17,8 @@ export const createChart = (data: any) => {
         labels: data.map(() => 2030),
         datasets: [
           {
-              label: 'XS',
+              label: 'XS/LD',
               data: data.map((row: any) => row.Value),
-              backgroundColor: 'rgba(255, 99, 132, 0.2)'
           },
       ],
       },

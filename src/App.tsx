@@ -3,16 +3,18 @@ import { SliderElem } from './components/Slider-elem'
 import { useDebounce } from './hooks/useDebounce'
 import { useQuery } from '@tanstack/react-query';
 import { getData } from './service';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Chart } from 'chart.js';
 import { Actions } from './components/Actions';
 import { ReportDataModel } from './core';
+import { ProductRate } from './components/Product-rate';
 import './App.css'
 
 function App() {
-  const chart = useRef<null | Chart>(null)
+  const [rates, setRates] = useState<ReportDataModel[]>([]);
+  const chart = useRef<null | Chart>(null);
   const {data, isFetched, isPending, isError} = useQuery({queryKey: ['data'], queryFn: getData});
-
+  
   const handleSliderOnChange = useDebounce((value: number, index: number) => {
     data[index] = {...data[index], Value: value};
     chart.current!.data.datasets[0].data[index] = value;
@@ -36,9 +38,10 @@ function App() {
   }
    
   return (
-    <>
+    <> 
+       <ProductRate rates={rates}/>
        <ChartView />
-       <Actions chart={chart} data={data}/>
+       <Actions chart={chart} data={data} setRates={setRates}/>
        <div className='container'>
         {data?.map(({Value, rus_name}: ReportDataModel, index: number) => {
           return <SliderElem title={rus_name} 
